@@ -145,7 +145,7 @@ class CoverPopupCard extends LitElement {
   }
 
   getCardSize() {
-    return this.config.entities.length + 1;
+    return 1;
   }
   
   static get styles() {
