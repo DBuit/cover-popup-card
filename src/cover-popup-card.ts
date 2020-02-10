@@ -181,8 +181,8 @@ class CoverPopupCard extends LitElement {
   }
 
   _close(event) {
-    if(event && event.target.className === 'popup-inner') {
-        closePopUp();
+    if(event && (event.target.className === 'popup-inner' || event.target.className === 'settings-inner')) {
+      closePopUp();
     }
   }
 
