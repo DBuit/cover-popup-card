@@ -12,6 +12,7 @@ class CoverPopupCard extends LitElement {
   settings = false;
   settingsCustomCard = false;
   settingsPosition = "bottom";
+  currentPosition = 0;
 
   static get properties() {
     return {
@@ -32,7 +33,8 @@ class CoverPopupCard extends LitElement {
     var actionsInARow = this.config.actionsInARow ? this.config.actionsInARow : 4;
     var icon = this.config.icon ? this.config.icon : stateObj.attributes.icon ? stateObj.attributes.icon: 'mdi:window-shutter';
     var borderRadius = this.config.borderRadius ? this.config.borderRadius : '12px';  
-    
+    this.currentPosition = Math.round(stateObj.attributes.current_position);
+
     //Actions
     var actionSize = "actionSize" in this.config ? this.config.actionSize : "50px";
     var actions = this.config.actions;
@@ -79,9 +81,9 @@ class CoverPopupCard extends LitElement {
           <div class="icon${fullscreen === true ? ' fullscreen':''}${offStates.includes(stateObj.state) ? '' : ' on'}">
               <ha-icon icon="${icon}" />
           </div>
-          <h4>${stateObj.state === "off" ? computeStateDisplay(this.hass.localize, stateObj, this.hass.language) : Math.round(stateObj.attributes.current_position)}</h4>
+          <h4 id="positionValue" class="${stateObj.state === "off" ? '' : 'position'}" data-value="${this.currentPosition}%">${stateObj.state === "off" ? computeStateDisplay(this.hass.localize, stateObj, this.hass.language) : ''}</h4>
           <div class="range-holder" style="--slider-height: ${sliderHeight};--slider-width: ${sliderWidth};">
-              <input type="range" style="--slider-width: ${sliderWidth};--slider-height: ${sliderHeight}; --slider-border-radius: ${borderRadius};--slider-color:${sliderColor};--slider-thumb-color:${sliderThumbColor};--slider-track-color:${sliderTrackColor};" .value="${stateObj.state === "off" ? 0 : Math.round(stateObj.attributes.current_position)}" @change=${e => this._setPosition(stateObj, e.target.value)}>
+              <input type="range" style="--slider-width: ${sliderWidth};--slider-height: ${sliderHeight}; --slider-border-radius: ${borderRadius};--slider-color:${sliderColor};--slider-thumb-color:${sliderThumbColor};--slider-track-color:${sliderTrackColor};" .value="${stateObj.state === "off" ? 0 : Math.round(stateObj.attributes.current_position)}" @input=${e => this._previewPosition(e.target.value)} @change=${e => this._setPosition(stateObj, e.target.value)}>
           </div>
 
           ${actions && actions.length > 0 ? html`
@@ -185,6 +187,12 @@ class CoverPopupCard extends LitElement {
     if(event && (event.target.className.includes('popup-inner') || event.target.className.includes('settings-inner'))) {
       closePopUp();
     }
+  }
+
+  _previewPosition(value) {
+    this.currentPosition = value;
+    const el = this.shadowRoot.getElementById("positionValue");
+    if(el) {el.dataset.value = value;}
   }
 
   _createRange(amount) {
@@ -308,6 +316,7 @@ class CoverPopupCard extends LitElement {
             width: 40px;
             color: rgba(255,255,255,0.3);
             font-size: 30px;
+            --mdc-icon-size: 30px;
             padding-top:5px;
         }
         .icon ha-icon {
@@ -315,7 +324,7 @@ class CoverPopupCard extends LitElement {
             height:30px;
         }
         .icon.on ha-icon {
-            fill: #f7d959;
+            color: #f7d959;
         }
         h4 {
             color: #FFF;
@@ -326,6 +335,10 @@ class CoverPopupCard extends LitElement {
             font-size:20px;
             margin-top:0;
             text-transform: capitalize;
+        }
+        h4.position:after {
+            content: attr(data-value);
+            padding-left: 1px;
         }
         
         .range-holder {
