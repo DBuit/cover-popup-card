@@ -89,6 +89,19 @@ actions:
     icon: mdi:window-shutter
 ```
 
+Example configuration with stripes (see second screenshot)
+```
+type: custom:cover-popup-card
+sliderService: cover.set_cover_position
+sliderColor: "#ddd"
+sliderTrackColor: "#FFF"
+sliderThumbColor: "#ddd"
+sliderThumbBorderColor: "#FFF"
+sliderTrackStripeColor: "#ddd"
+```
+
 ### Screenshot
 
 ![Screenshot](screenshot.png)
+
+![Screenshot](cover-stripes.png)
