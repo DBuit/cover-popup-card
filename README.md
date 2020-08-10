@@ -46,7 +46,9 @@ resources:
 | `sliderService` | string | **required** | `cover.set_cover_position` or `cover.set_cover_tilt_position` | Set if you want to set the position or the tilt by using the slider |
 | `sliderColor` | string | optional | "#FFF" | The color of the slider |
 | `sliderThumbColor` | string | optional | "#ddd" | The color of the line that you use to slide the slider  |
-| `sliderTrackColor` | string | optional | "#ddd" | The color of the slider track |
+| `sliderTrackColor` | string | optional | "#ddd" | The track that if not filled by the slider |
+| `sliderTrackStripeColor` | string | optional | "#ddd" | The track can be striped by making this color different than the sliderTrackColor |
+| `sliderThumbBorderColor` | string | optional | "#ddd" | The color of the space around the thumb |
 | `settings` | boolean | optional | false | When it will add an settings button that displays the more-info content  see settings example for my light popup for more options/information [here]: https://github.com/DBuit/light-popup-card#settings |
 | `settingsPosition` | string | optional | `bottom`  | set position of the settings button options: `top` or `bottom`. |
 

@@ -15,6 +15,7 @@ const directives = new WeakMap();
 const isDirective = (o) => {
     return typeof o === 'function' && directives.has(o);
 };
+//# sourceMappingURL=directive.js.map
 
 /**
  * @license
@@ -46,6 +47,7 @@ const removeNodes = (container, start, end = null) => {
         start = n;
     }
 };
+//# sourceMappingURL=dom.js.map
 
 /**
  * @license
@@ -69,6 +71,7 @@ const noChange = {};
  * A sentinel value that signals a NodePart to fully clear its content.
  */
 const nothing = {};
+//# sourceMappingURL=part.js.map
 
 /**
  * @license
@@ -282,6 +285,7 @@ const createMarker = () => document.createComment('');
  *    * (') then any non-(')
  */
 const lastAttributeNameRegex = /([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
+//# sourceMappingURL=template.js.map
 
 /**
  * @license
@@ -414,6 +418,7 @@ class TemplateInstance {
         return fragment;
     }
 }
+//# sourceMappingURL=template-instance.js.map
 
 /**
  * @license
@@ -502,6 +507,7 @@ class TemplateResult {
         return template;
     }
 }
+//# sourceMappingURL=template-result.js.map
 
 /**
  * @license
@@ -941,6 +947,7 @@ const getOptions = (o) => o &&
     (eventOptionsSupported ?
         { capture: o.capture, passive: o.passive, once: o.once } :
         o.capture);
+//# sourceMappingURL=parts.js.map
 
 /**
  * @license
@@ -992,6 +999,7 @@ class DefaultTemplateProcessor {
     }
 }
 const defaultTemplateProcessor = new DefaultTemplateProcessor();
+//# sourceMappingURL=default-template-processor.js.map
 
 /**
  * @license
@@ -1039,6 +1047,7 @@ function templateFactory(result) {
     return template;
 }
 const templateCaches = new Map();
+//# sourceMappingURL=template-factory.js.map
 
 /**
  * @license
@@ -1079,6 +1088,7 @@ const render = (result, container, options) => {
     part.setValue(result);
     part.commit();
 };
+//# sourceMappingURL=render.js.map
 
 /**
  * @license
@@ -1102,6 +1112,7 @@ const render = (result, container, options) => {
  * render to and update a container.
  */
 const html = (strings, ...values) => new TemplateResult(strings, values, 'html', defaultTemplateProcessor);
+//# sourceMappingURL=lit-html.js.map
 
 /**
  * @license
@@ -1226,6 +1237,7 @@ function insertNodeIntoTemplate(template, node, refNode = null) {
         }
     }
 }
+//# sourceMappingURL=modify-template.js.map
 
 /**
  * @license
@@ -1495,6 +1507,7 @@ const render$1 = (result, container, options) => {
         window.ShadyCSS.styleElement(container.host);
     }
 };
+//# sourceMappingURL=shady-render.js.map
 
 /**
  * @license
@@ -2120,6 +2133,7 @@ _a = finalized;
  * Marks class as having finished creating properties.
  */
 UpdatingElement[_a] = true;
+//# sourceMappingURL=updating-element.js.map
 
 /**
 @license
@@ -2183,6 +2197,7 @@ const css = (strings, ...values) => {
     const cssText = values.reduce((acc, v, idx) => acc + textFromCSSResult(v) + strings[idx + 1], strings[0]);
     return new CSSResult(cssText, constructionToken);
 };
+//# sourceMappingURL=css-tag.js.map
 
 /**
  * @license
@@ -2380,6 +2395,7 @@ LitElement['finalized'] = true;
  * @nocollapse
  */
 LitElement.render = render$1;
+//# sourceMappingURL=lit-element.js.map
 
 function hass() {
   if(document.querySelector('hc-main'))
@@ -2813,7 +2829,7 @@ fecha.parse = function (dateStr, format, i18nSettings) {
   return date;
 };
 
-var a=function(){try{(new Date).toLocaleDateString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleDateString(t,{year:"numeric",month:"long",day:"numeric"})}:function(t){return fecha.format(t,"mediumDate")},n=function(){try{(new Date).toLocaleString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleString(t,{year:"numeric",month:"long",day:"numeric",hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"haDateTime")},r=function(){try{(new Date).toLocaleTimeString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleTimeString(t,{hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"shortTime")};function d(e){return e.substr(0,e.indexOf("."))}function g(e){return d(e.entity_id)}function b(e,t,i){var o,s=g(t);if("binary_sensor"===s)t.attributes.device_class&&(o=e("state."+s+"."+t.attributes.device_class+"."+t.state)),o||(o=e("state."+s+".default."+t.state));else if(t.attributes.unit_of_measurement&&!["unknown","unavailable"].includes(t.state))o=t.state+" "+t.attributes.unit_of_measurement;else if("input_datetime"===s){var c;if(t.attributes.has_time)if(t.attributes.has_date)c=new Date(t.attributes.year,t.attributes.month-1,t.attributes.day,t.attributes.hour,t.attributes.minute),o=n(c,i);else{var u=new Date;c=new Date(u.getFullYear(),u.getMonth(),u.getDay(),t.attributes.hour,t.attributes.minute),o=r(c,i);}else c=new Date(t.attributes.year,t.attributes.month-1,t.attributes.day),o=a(c,i);}else o="zwave"===s?["initializing","dead"].includes(t.state)?e("state.zwave.query_stage."+t.state,"query_stage",t.attributes.query_stage):e("state.zwave.default."+t.state):e("state."+s+"."+t.state);return o||(o=e("state.default."+t.state)||e("component."+s+".state."+t.state)||t.state),o}
+var a=function(){try{(new Date).toLocaleDateString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleDateString(t,{year:"numeric",month:"long",day:"numeric"})}:function(t){return fecha.format(t,"mediumDate")},n=function(){try{(new Date).toLocaleString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleString(t,{year:"numeric",month:"long",day:"numeric",hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"haDateTime")},r=function(){try{(new Date).toLocaleTimeString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleTimeString(t,{hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"shortTime")};function d(e){return e.substr(0,e.indexOf("."))}function g(e){return d(e.entity_id)}function b(e,t,i){var o,s=g(t);if("binary_sensor"===s)t.attributes.device_class&&(o=e("state."+s+"."+t.attributes.device_class+"."+t.state)),o||(o=e("state."+s+".default."+t.state));else if(t.attributes.unit_of_measurement&&!["unknown","unavailable"].includes(t.state))o=t.state+" "+t.attributes.unit_of_measurement;else if("input_datetime"===s){var c;if(t.attributes.has_time)if(t.attributes.has_date)c=new Date(t.attributes.year,t.attributes.month-1,t.attributes.day,t.attributes.hour,t.attributes.minute),o=n(c,i);else{var u=new Date;c=new Date(u.getFullYear(),u.getMonth(),u.getDay(),t.attributes.hour,t.attributes.minute),o=r(c,i);}else c=new Date(t.attributes.year,t.attributes.month-1,t.attributes.day),o=a(c,i);}else o="zwave"===s?["initializing","dead"].includes(t.state)?e("state.zwave.query_stage."+t.state,"query_stage",t.attributes.query_stage):e("state.zwave.default."+t.state):e("state."+s+"."+t.state);return o||(o=e("state.default."+t.state)||e("component."+s+".state."+t.state)||t.state),o}//# sourceMappingURL=index.m.js.map
 
 class CoverPopupCard extends LitElement {
     constructor() {
@@ -2863,6 +2879,8 @@ class CoverPopupCard extends LitElement {
         var sliderColor = "sliderColor" in this.config ? this.config.sliderColor : "#FFF";
         var sliderThumbColor = "sliderThumbColor" in this.config ? this.config.sliderThumbColor : "#ddd";
         var sliderTrackColor = "sliderTrackColor" in this.config ? this.config.sliderTrackColor : "#ddd";
+        var sliderThumbBorderColor = "sliderThumbBorderColor" in this.config ? this.config.sliderThumbBorderColor : sliderColor;
+        var sliderTrackStripeColor = "sliderTrackStripeColor" in this.config ? this.config.sliderTrackStripeColor : sliderTrackColor;
         if (this.settingsCustomCard && this.config.settingsCard.cardOptions) {
             if (this.config.settingsCard.cardOptions.entity && this.config.settingsCard.cardOptions.entity == 'this') {
                 this.config.settingsCard.cardOptions.entity = entity;
@@ -2886,7 +2904,7 @@ class CoverPopupCard extends LitElement {
           </div>
           <h4 id="positionValue" class="${stateObj.state === "off" ? '' : 'position'}" data-value="${this.currentPosition}%">${stateObj.state === "off" ? b(this.hass.localize, stateObj, this.hass.language) : ''}</h4>
           <div class="range-holder" style="--slider-height: ${sliderHeight};--slider-width: ${sliderWidth};">
-              <input type="range" style="--slider-width: ${sliderWidth};--slider-height: ${sliderHeight}; --slider-border-radius: ${borderRadius};--slider-color:${sliderColor};--slider-thumb-color:${sliderThumbColor};--slider-track-color:${sliderTrackColor};" .value="${stateObj.state === "off" ? 0 : Math.round(stateObj.attributes.current_position)}" @input=${e => this._previewPosition(e.target.value)} @change=${e => this._setPosition(stateObj, e.target.value)}>
+              <input type="range" style="--slider-width: ${sliderWidth};--slider-height: ${sliderHeight}; --slider-border-radius: ${borderRadius};--slider-color:${sliderColor};--slider-thumb-color:${sliderThumbColor};--slider-thumb-border-color:${sliderThumbBorderColor};--slider-track-color:${sliderTrackColor};--slider-track-stripe-color:${sliderTrackStripeColor};" .value="${stateObj.state === "off" ? 0 : Math.round(stateObj.attributes.current_position)}" @input=${e => this._previewPosition(e.target.value)} @change=${e => this._setPosition(stateObj, e.target.value)}>
           </div>
 
           ${actions && actions.length > 0 ? html `
@@ -3138,6 +3156,7 @@ class CoverPopupCard extends LitElement {
             width: var(--slider-width);
             position:relative;
             display: block;
+            
         }
         .range-holder input[type="range"] {
             outline: 0;
@@ -3162,25 +3181,26 @@ class CoverPopupCard extends LitElement {
         .range-holder input[type="range"]::-webkit-slider-runnable-track {
             height: var(--slider-width);
             -webkit-appearance: none;
-            background-color: var(--slider-track-color);
+            background-image: linear-gradient(90deg, var(--slider-track-stripe-color) 10%, var(--slider-track-color) 10%, var(--slider-track-color) 50%, var(--slider-track-stripe-color) 50%, var(--slider-track-stripe-color) 60%, var(--slider-track-color) 60%, var(--slider-track-color) 100%);
+            background-size: 50.00px 50.00px;
             margin-top: -1px;
             transition: box-shadow 0.2s ease-in-out;
         }
         .range-holder input[type="range"]::-webkit-slider-thumb {
             width: 25px;
-            border-right:10px solid var(--slider-color);
-            border-left:10px solid var(--slider-color);
-            border-top:20px solid var(--slider-color);
-            border-bottom:20px solid var(--slider-color);
+            border-right:10px solid var(--slider-thumb-border-color);
+            border-left:10px solid var(--slider-thumb-border-color);
+            border-top:calc((var(--slider-width) - 40px) / 2) solid var(--slider-thumb-border-color);
+            border-bottom:calc((var(--slider-width) - 40px) / 2) solid var(--slider-thumb-border-color);
             -webkit-appearance: none;
-            height: 80px;
+            height: var(--slider-width);
             cursor: ew-resize;
             background: #fff;
             box-shadow: -350px 0 0 350px var(--slider-color), inset 0 0 0 80px var(--slider-thumb-color);
             border-radius: 0;
             transition: box-shadow 0.2s ease-in-out;
             position: relative;
-            top: calc((var(--slider-width) - 80px) / 2);
+            top: 0;
         }
         
         .action-holder {

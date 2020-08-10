@@ -62,6 +62,8 @@ class CoverPopupCard extends LitElement {
     var sliderColor = "sliderColor" in this.config ? this.config.sliderColor : "#FFF";
     var sliderThumbColor = "sliderThumbColor" in this.config ? this.config.sliderThumbColor : "#ddd";
     var sliderTrackColor = "sliderTrackColor" in this.config ? this.config.sliderTrackColor : "#ddd";
+    var sliderThumbBorderColor = "sliderThumbBorderColor" in this.config ? this.config.sliderThumbBorderColor : sliderColor;
+    var sliderTrackStripeColor = "sliderTrackStripeColor" in this.config ? this.config.sliderTrackStripeColor : sliderTrackColor;
     if(this.settingsCustomCard && this.config.settingsCard.cardOptions) {
       if(this.config.settingsCard.cardOptions.entity && this.config.settingsCard.cardOptions.entity == 'this') {
         this.config.settingsCard.cardOptions.entity = entity;
@@ -83,7 +85,7 @@ class CoverPopupCard extends LitElement {
           </div>
           <h4 id="positionValue" class="${stateObj.state === "off" ? '' : 'position'}" data-value="${this.currentPosition}%">${stateObj.state === "off" ? computeStateDisplay(this.hass.localize, stateObj, this.hass.language) : ''}</h4>
           <div class="range-holder" style="--slider-height: ${sliderHeight};--slider-width: ${sliderWidth};">
-              <input type="range" style="--slider-width: ${sliderWidth};--slider-height: ${sliderHeight}; --slider-border-radius: ${borderRadius};--slider-color:${sliderColor};--slider-thumb-color:${sliderThumbColor};--slider-track-color:${sliderTrackColor};" .value="${stateObj.state === "off" ? 0 : Math.round(stateObj.attributes.current_position)}" @input=${e => this._previewPosition(e.target.value)} @change=${e => this._setPosition(stateObj, e.target.value)}>
+              <input type="range" style="--slider-width: ${sliderWidth};--slider-height: ${sliderHeight}; --slider-border-radius: ${borderRadius};--slider-color:${sliderColor};--slider-thumb-color:${sliderThumbColor};--slider-thumb-border-color:${sliderThumbBorderColor};--slider-track-color:${sliderTrackColor};--slider-track-stripe-color:${sliderTrackStripeColor};" .value="${stateObj.state === "off" ? 0 : Math.round(stateObj.attributes.current_position)}" @input=${e => this._previewPosition(e.target.value)} @change=${e => this._setPosition(stateObj, e.target.value)}>
           </div>
 
           ${actions && actions.length > 0 ? html`
@@ -346,6 +348,7 @@ class CoverPopupCard extends LitElement {
             width: var(--slider-width);
             position:relative;
             display: block;
+            
         }
         .range-holder input[type="range"] {
             outline: 0;
@@ -370,25 +373,26 @@ class CoverPopupCard extends LitElement {
         .range-holder input[type="range"]::-webkit-slider-runnable-track {
             height: var(--slider-width);
             -webkit-appearance: none;
-            background-color: var(--slider-track-color);
+            background-image: linear-gradient(90deg, var(--slider-track-stripe-color) 10%, var(--slider-track-color) 10%, var(--slider-track-color) 50%, var(--slider-track-stripe-color) 50%, var(--slider-track-stripe-color) 60%, var(--slider-track-color) 60%, var(--slider-track-color) 100%);
+            background-size: 50.00px 50.00px;
             margin-top: -1px;
             transition: box-shadow 0.2s ease-in-out;
         }
         .range-holder input[type="range"]::-webkit-slider-thumb {
             width: 25px;
-            border-right:10px solid var(--slider-color);
-            border-left:10px solid var(--slider-color);
-            border-top:20px solid var(--slider-color);
-            border-bottom:20px solid var(--slider-color);
+            border-right:10px solid var(--slider-thumb-border-color);
+            border-left:10px solid var(--slider-thumb-border-color);
+            border-top:calc((var(--slider-width) - 40px) / 2) solid var(--slider-thumb-border-color);
+            border-bottom:calc((var(--slider-width) - 40px) / 2) solid var(--slider-thumb-border-color);
             -webkit-appearance: none;
-            height: 80px;
+            height: var(--slider-width);
             cursor: ew-resize;
             background: #fff;
             box-shadow: -350px 0 0 350px var(--slider-color), inset 0 0 0 80px var(--slider-thumb-color);
             border-radius: 0;
             transition: box-shadow 0.2s ease-in-out;
             position: relative;
-            top: calc((var(--slider-width) - 80px) / 2);
+            top: 0;
         }
         
         .action-holder {
