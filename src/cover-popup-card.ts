@@ -405,7 +405,8 @@ class CoverPopupCard extends LitElement {
         }
         .action-holder .action {
             display:inline-block;
-            margin-right:10px;
+            margin-right:4px;
+            margin-left:4px;
             cursor:pointer;
         }
         .action-holder .action:nth-child(4n) {
