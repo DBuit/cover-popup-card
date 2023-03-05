@@ -32,7 +32,15 @@ class CoverPopupCard extends LitElement {
     var actionsInARow = this.config.actionsInARow ? this.config.actionsInARow : 4;
     var icon = this.config.icon ? this.config.icon : stateObj.attributes.icon ? stateObj.attributes.icon: 'mdi:window-shutter';
     var borderRadius = this.config.borderRadius ? this.config.borderRadius : '12px';  
-    this.currentPosition = Math.round(stateObj.attributes.current_position);
+    const [domain, service] = this.config.sliderService.split(".", 2);
+    if(service == 'set_cover_position')
+    {
+      this.currentPosition = Math.round(stateObj.attributes.current_position);
+    }
+    else
+    {
+      this.currentPosition = Math.round(stateObj.attributes.current_tilt_position);
+    }
 
     //Actions
     var actionSize = "actionSize" in this.config ? this.config.actionSize : "50px";
@@ -84,7 +92,7 @@ class CoverPopupCard extends LitElement {
           </div>
           <h4 id="positionValue" class="${stateObj.state === "off" ? '' : 'position'}" data-value="${this.currentPosition}%">${stateObj.state === "off" ? computeStateDisplay(this.hass.localize, stateObj, this.hass.language) : ''}</h4>
           <div class="range-holder" style="--slider-height: ${sliderHeight};--slider-width: ${sliderWidth};">
-              <input type="range" style="--slider-width: ${sliderWidth};--slider-height: ${sliderHeight}; --slider-border-radius: ${borderRadius};--slider-color:${sliderColor};--slider-thumb-color:${sliderThumbColor};--slider-thumb-border-color:${sliderThumbBorderColor};--slider-track-color:${sliderTrackColor};--slider-track-stripe-color:${sliderTrackStripeColor};" .value="${stateObj.state === "off" ? 0 : Math.round(stateObj.attributes.current_position)}" @input=${e => this._previewPosition(e.target.value)} @change=${e => this._setPosition(stateObj, e.target.value)}>
+              <input type="range" style="--slider-width: ${sliderWidth};--slider-height: ${sliderHeight}; --slider-border-radius: ${borderRadius};--slider-color:${sliderColor};--slider-thumb-color:${sliderThumbColor};--slider-thumb-border-color:${sliderThumbBorderColor};--slider-track-color:${sliderTrackColor};--slider-track-stripe-color:${sliderTrackStripeColor};" .value="${stateObj.state === "off" ? 0 : Math.round(this.currentPosition)}" @input=${e => this._previewPosition(e.target.value)} @change=${e => this._setPosition(stateObj, e.target.value)}>
           </div>
 
           ${actions && actions.length > 0 ? html`
